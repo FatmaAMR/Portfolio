@@ -1,569 +1,466 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fatma Amr Abdelrahman - AI Software Engineer</title>
+    <title>Fatma Amr | AI Software Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <style>
-        @layer base {
-            html, body { margin: 0; padding: 0; }
-            body { overscroll-behavior: none; }
-        }
-        ::-webkit-scrollbar { display: none; }
-        .page-section { display: none; animation: fadeIn 0.4s ease-in-out; }
-        .page-section.active-page { display: flex; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "border-strong": "#33333f", "surface-container-low": "#1c1b1d", "border-subtle": "#22222a",
-                        "surface-elevated": "#111115", "surface": "#131315", "surface-container-highest": "#353437",
-                        "surface-variant": "#353437", "surface-base": "#0a0a0c", "on-surface": "#e5e1e4",
-                        "text-muted": "#565666", "text-secondary": "#8e8e9e", "primary": "#4edea3",
-                        "secondary": "#4cd7f6", "background": "#131315", "surface-container": "#201f21",
-                        "accent-emerald": "#10b981", "accent-lime": "#e8ff00", "text-primary": "#f4f4f7",
-                        "tertiary": "#d0bcff", "surface-overlay": "#18181f"
+                        os: {
+                            base: "#050505",
+                            panel: "#0f0f0f",
+                            border: "#1f1f1f",
+                            text: "#d1d5db",
+                            heading: "#ffffff",
+                            accent: "#00ff41", 
+                            accentHover: "#00cc33"
+                        }
                     },
-                    spacing: { "space-sm": "0.75rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xl": "2rem", "space-3xl": "4.5rem", "content-max-width": "72rem" },
-                    fontFamily: { "body-md": ["Inter"], "code-md": ["JetBrains Mono"], "code-sm": ["JetBrains Mono"], "headline-xl": ["Inter"], "headline-md": ["Inter"], "label-caps": ["JetBrains Mono"] }
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neon': '0 0 10px rgba(0, 255, 65, 0.2)',
+                        'neon-strong': '0 0 20px rgba(0, 255, 65, 0.4)',
+                    }
                 }
             }
         };
     </script>
-</head>
-<body class="bg-surface-base font-body-md text-on-surface antialiased selection:bg-primary selection:text-surface-base">
+    <style>
+        /* Base and Scrollbar */
+        body {
+            background-color: #050505;
+            color: #d1d5db;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #1f1f1f; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00ff41; }
 
-    <header class="fixed top-0 inset-x-0 z-50 bg-surface-base/90 backdrop-blur-xl border-b border-border-subtle shadow-lg">
-        <div class="h-16 max-w-content-max-width mx-auto px-4 md:px-8 flex items-center justify-between">
-            <div class="flex items-center gap-space-md">
-                <a class="flex items-center gap-space-xs cursor-pointer" onclick="navigate('overview')">
-                    <div class="w-8 h-8 rounded-lg bg-surface-container border border-border-subtle flex items-center justify-center font-code-md text-primary font-bold">FA</div>
-                    <span class="font-code-md text-text-primary font-medium hidden sm:inline-block">Fatma Amr</span>
-                </a>
+        /* Subtle Animated Grid Background */
+        .os-bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); }
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Glitch/Neon Vibe */
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            line-height: 1;
+            letter-spacing: -0.04em;
+            color: #ffffff;
+        }
+        .text-neon {
+            color: #00ff41;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        /* Modal Transitions */
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-out;
+            backdrop-filter: blur(8px);
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        /* Custom Project Card Hover */
+        .project-card {
+            transition: all 0.4s ease;
+        }
+        .project-card:hover {
+            border-color: #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-os-accent selection:text-black">
+
+    <div class="os-bg-grid"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-os-base/80 backdrop-blur-md border-b border-os-border">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between font-mono text-sm">
+            <div class="flex items-center gap-2 text-os-heading">
+                <span class="w-3 h-3 rounded-full bg-os-accent animate-pulse"></span>
+                <span class="font-bold tracking-wider uppercase">Sys.Admin // FA</span>
             </div>
-            <nav class="hidden md:flex items-center gap-space-lg">
-                <button class="nav-link text-primary font-medium transition-colors" onclick="navigate('overview')">Overview</button>
-                <button class="nav-link text-text-secondary hover:text-text-primary transition-colors" onclick="navigate('skills-section')">Skills & Stack</button>
-                <button class="nav-link text-text-secondary hover:text-text-primary transition-colors" onclick="navigate('projects-section')">Projects</button>
-                <button class="nav-link text-text-secondary hover:text-text-primary transition-colors" onclick="navigate('experience-section')">Experience</button>
-                <button class="nav-link text-text-secondary hover:text-text-primary transition-colors" onclick="navigate('education-section')">Education</button>
+            <nav class="hidden md:flex gap-8">
+                <a href="#hero" class="text-os-text hover:text-os-accent transition-colors">[ INIT ]</a>
+                <a href="#works" class="text-os-text hover:text-os-accent transition-colors">[ WORKS ]</a>
+                <a href="#experience" class="text-os-text hover:text-os-accent transition-colors">[ EXPERIENCE ]</a>
+                <a href="#education" class="text-os-text hover:text-os-accent transition-colors">[ EDUCATION ]</a>
             </nav>
-            <div class="flex items-center gap-space-sm">
-                <button class="flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-elevated border border-border-subtle hover:text-primary transition-all" onclick="openPaletteModal()">
-                    <span class="font-code-sm text-primary">&gt;</span><span class="font-code-sm hidden sm:inline">CLI</span><kbd class="font-code-sm px-1.5 rounded bg-surface-container">⌘K</kbd>
-                </button>
-            </div>
         </div>
     </header>
 
-    <main class="w-full pt-20 pb-24 bg-surface-base min-h-screen max-w-content-max-width mx-auto px-4 md:px-8 flex flex-col gap-space-3xl">
+    <!-- Main Content Flow -->
+    <main class="w-full flex flex-col items-center">
         
-        <!-- OVERVIEW PAGE -->
-        <section id="overview" class="page-section active-page flex-col gap-space-3xl relative pt-8">
-            <div class="absolute -top-16 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+        <!-- SECTION 1: HERO -->
+        <section id="hero" class="w-full min-h-screen flex flex-col justify-center max-w-7xl mx-auto px-6 pt-20 pb-12 reveal">
+            <div class="font-mono text-os-accent mb-4 tracking-widest text-sm md:text-base">
+                > SYSTEM BOOT ... OK <br>
+                > USER IDENTIFIED:
+            </div>
+            <h1 class="hero-title font-black uppercase">
+                Fatma<br>
+                Amr<span class="text-neon">.</span>
+            </h1>
+            <h2 class="text-xl md:text-3xl font-mono mt-8 text-os-text max-w-3xl leading-relaxed">
+                <span class="text-os-heading">AI Software Engineer</span> specialized in Agentic workflows, deep predictive modeling, and real-time inference systems.
+            </h2>
+            <div class="flex flex-wrap gap-4 mt-10 font-mono text-sm">
+                <a href="#works" class="px-6 py-3 border border-os-accent text-os-accent hover:bg-os-accent hover:text-black transition-all duration-300 shadow-neon">
+                    EXECUTE ./projects.sh
+                </a>
+                <a href="#experience" class="px-6 py-3 border border-os-border text-os-text hover:border-os-text transition-all duration-300">
+                    CAT experience.txt
+                </a>
+            </div>
+        </section>
+
+        <!-- SECTION 2: SELECTED WORKS -->
+        <section id="works" class="w-full min-h-screen max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center">
+            <div class="reveal">
+                <div class="font-mono text-os-accent mb-2">01 // DIRECTORY_LISTING</div>
+                <h2 class="text-4xl md:text-6xl font-black uppercase text-os-heading mb-12">Selected Works<span class="text-neon">_</span></h2>
+            </div>
+
+            <!-- Rounded Rectangles Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Project 1 -->
+                <div class="project-card reveal bg-os-panel border border-os-border p-8 cursor-pointer" style="border-radius: 2rem;" onclick="openModal('project-1')">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="font-mono text-os-accent text-xs border border-os-accent px-2 py-1 rounded">PROD_ENV</span>
+                        <span class="material-symbols-outlined text-os-text">memory</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-os-heading mb-3">Asset Sentinel</h3>
+                    <p class="text-os-text mb-6 line-clamp-2">Industrial Predictive Maintenance Platform leveraging Deep LSTM for RUL forecasting on NASA CMAPSS.</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="text-os-text bg-os-base px-3 py-1 rounded-full">FastAPI</span>
+                        <span class="text-os-text bg-os-base px-3 py-1 rounded-full">RabbitMQ</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card reveal bg-os-panel border border-os-border p-8 cursor-pointer" style="border-radius: 2rem;" onclick="openModal('project-2')">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="font-mono text-os-accent text-xs border border-os-accent px-2 py-1 rounded">AI_CORE</span>
+                        <span class="material-symbols-outlined text-os-text">medical_services</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-os-heading mb-3">ELARA</h3>
+                    <p class="text-os-text mb-6 line-clamp-2">Clinical-Grade RAG System for processing complex, multi-modal medical literature with deterministic guardrails.</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="text-os-text bg-os-base px-3 py-1 rounded-full">Qdrant</span>
+                        <span class="text-os-text bg-os-base px-3 py-1 rounded-full">Docling</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card reveal bg-os-panel border border-os-border p-8 cursor-pointer" style="border-radius: 2rem;" onclick="openModal('project-3')">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="font-mono text-os-accent text-xs border border-os-accent px-2 py-1 rounded">AUTOMATION</span>
+                        <span class="material-symbols-outlined text-os-text">description</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-os-heading mb-3">SwiftApply</h3>
+                    <p class="text-os-text mb-6 line-clamp-2">Intelligent CV Generation Automator tailored to Job Descriptions via prompt engineering and Llama 3.</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="text-os-text bg-os-base px-3 py-1 rounded-full">Llama 3</span>
+                        <span class="text-os-text bg-os-base px-3 py-1 rounded-full">LangChain</span>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card reveal bg-os-panel border border-os-border p-8 cursor-pointer" style="border-radius: 2rem;" onclick="openModal('project-4')">
+                    <div class="flex justify-between items-start mb-6">
+                        <span class="font-mono text-os-accent text-xs border border-os-accent px-2 py-1 rounded">SEC_OPS</span>
+                        <span class="material-symbols-outlined text-os-text">security</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-os-heading mb-3">NDR & SOC Triage</h3>
+                    <p class="text-os-text mb-6 line-clamp-2">Real-Time Network Detection and Response pipeline utilizing Kafka and an XGBoost inference layer.</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="text-os-text bg-os-base px-3 py-1 rounded-full">Kafka</span>
+                        <span class="text-os-text bg-os-base px-3 py-1 rounded-full">XGBoost</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: EXPERIENCE -->
+        <section id="experience" class="w-full max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center border-t border-os-border">
+            <div class="reveal">
+                <div class="font-mono text-os-accent mb-2">02 // SYS_LOGS</div>
+                <h2 class="text-4xl md:text-6xl font-black uppercase text-os-heading mb-12">Experience<span class="text-neon">_</span></h2>
+            </div>
             
-            <div class="flex flex-col items-start gap-space-lg">
-                <div class="flex flex-wrap items-center gap-space-sm">
-                    <div class="inline-flex items-center gap-space-2xs px-space-sm py-1 rounded-full bg-surface-elevated border border-border-subtle cursor-pointer select-none group" onclick="cycleGreeting()">
-                        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                        <span class="font-code-md text-text-primary" id="greetingText">Hello World • Fatma Amr</span>
-                    </div>
-                    <div class="inline-flex items-center gap-space-2xs px-space-sm py-1 rounded-full bg-surface-container border border-border-subtle">
-                        <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-emerald opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-accent-emerald"></span></span>
-                        <span class="font-code-sm text-text-primary font-medium">Available for AI Engineering Roles</span>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-space-sm max-w-3xl">
-                    <h1 class="text-4xl md:text-5xl text-text-primary tracking-tight font-semibold">
-                        AI Software Engineer <span class="text-text-muted font-normal">—</span> Backend & ML Systems
-                    </h1>
-                    <p class="text-lg text-text-secondary leading-relaxed max-w-2xl mt-4">
-                        Specializing in autonomous Agentic workflows, enterprise RAG pipelines, and high-throughput real-time inference systems. Proven experience in designing backend microservices, real-time data streaming, and generative AI systems using Python, FastAPI, and LangGraph.
+            <div class="relative border-l border-os-border ml-4 md:ml-0 flex flex-col gap-12 pl-8">
+                
+                <div class="reveal relative">
+                    <div class="absolute w-3 h-3 bg-os-accent rounded-full -left-[38px] top-2 shadow-neon"></div>
+                    <div class="font-mono text-os-accent mb-1 text-sm">August 2026 – Present</div>
+                    <h3 class="text-2xl font-bold text-os-heading">AI Engineer Intern</h3>
+                    <div class="text-os-text font-mono mb-4 text-sm">@ Duckurity</div>
+                    <p class="text-os-text max-w-3xl leading-relaxed">
+                        Building autonomous Agentic workflows for Nester AI. Designing multi-step reasoning and dynamic routing loops with LangGraph. Developing asynchronous FastAPI backends with structured, low-latency responses.
                     </p>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-space-sm w-full pt-4">
-                    <button class="inline-flex items-center justify-center gap-space-xs px-space-lg py-2.5 rounded-lg bg-primary text-surface-base font-semibold hover:opacity-90 transition-all" onclick="navigate('projects-section')">
-                        <span class="material-symbols-outlined text-[18px]">memory</span> Explore Projects
-                    </button>
-                    <button class="inline-flex items-center justify-center gap-space-xs px-space-md py-2.5 rounded-lg bg-surface-container-low border border-border-subtle text-text-secondary hover:text-text-primary transition-all font-code-sm shadow-sm" onclick="copyEmail()">
-                        <span class="material-symbols-outlined text-[16px] text-primary">content_copy</span>
-                        <span id="copyEmailLabel">fatma.amr@example.com</span>
-                    </button>
+                <div class="reveal relative">
+                    <div class="absolute w-3 h-3 bg-os-border rounded-full -left-[38px] top-2"></div>
+                    <div class="font-mono text-os-text mb-1 text-sm">November 2025 – Present</div>
+                    <h3 class="text-2xl font-bold text-os-heading">Data Science Vice Head</h3>
+                    <div class="text-os-text font-mono mb-4 text-sm">@ Google Developer Group (GDG Al-Azhar)</div>
+                    <p class="text-os-text max-w-3xl leading-relaxed">
+                        Leading the curriculum track for AI engineering and facilitating technical workshops focused on Generative AI and core ML logic.
+                    </p>
                 </div>
-            </div>
 
-            <!-- Highlights -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm w-full mt-8">
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm">
-                    <span class="font-label-caps text-text-muted uppercase tracking-wider block mb-2">Frameworks</span>
-                    <span class="text-xl text-text-primary font-bold block">LangGraph</span>
-                    <span class="font-code-sm text-text-secondary">Agentic RAG & LLMs</span>
+                <div class="reveal relative">
+                    <div class="absolute w-3 h-3 bg-os-border rounded-full -left-[38px] top-2"></div>
+                    <div class="font-mono text-os-text mb-1 text-sm">2024 – 2026 Apprenticeships</div>
+                    <h3 class="text-2xl font-bold text-os-heading">AI & ML Trainee Trajectory</h3>
+                    <div class="text-os-text font-mono mb-4 text-sm">@ Samsung Innovation Campus, Elevvo, ALX Africa, NTI, DEPI</div>
+                    <p class="text-os-text max-w-3xl leading-relaxed">
+                        Completed rigorous technical training programs covering Computer Vision, Backend (.NET), Data Science, and deep neural network optimization. Recognized as Outstanding Contributor during Elevvo ML internship.
+                    </p>
                 </div>
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm">
-                    <span class="font-label-caps text-text-muted uppercase tracking-wider block mb-2">Deep Learning</span>
-                    <span class="text-xl text-text-primary font-bold block">PyTorch</span>
-                    <span class="font-code-sm text-text-secondary">Neural Networks & LSTMs</span>
-                </div>
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm">
-                    <span class="font-label-caps text-text-muted uppercase tracking-wider block mb-2">Real-time Streaming</span>
-                    <span class="text-xl text-text-primary font-bold block">Kafka / RabbitMQ</span>
-                    <span class="font-code-sm text-text-secondary">Distributed Buffers</span>
-                </div>
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm">
-                    <span class="font-label-caps text-text-muted uppercase tracking-wider block mb-2">Backend Ops</span>
-                    <span class="text-xl text-text-primary font-bold block">FastAPI & .NET</span>
-                    <span class="font-code-sm text-text-secondary">Microservices Architecture</span>
-                </div>
+
             </div>
         </section>
 
-        <!-- SKILLS PAGE -->
-        <section id="skills-section" class="page-section flex-col gap-space-lg w-full pt-8">
-            <div class="flex items-center gap-space-xs font-code-sm text-primary mb-1"><span>01 // CAPABILITIES</span></div>
-            <h2 class="text-3xl text-text-primary font-semibold tracking-tight">Engineered Skills & Stack</h2>
-            
-            <div class="flex flex-wrap gap-space-2xs p-1 rounded-lg bg-surface-elevated border border-border-subtle w-max mt-4">
-                <button class="skill-tab px-space-sm py-1 rounded text-text-primary bg-surface-container font-code-sm transition-all" onclick="filterSkills('all', this)">All</button>
-                <button class="skill-tab px-space-sm py-1 rounded text-text-secondary hover:text-text-primary font-code-sm transition-all" onclick="filterSkills('data-ai', this)">Data & AI</button>
-                <button class="skill-tab px-space-sm py-1 rounded text-text-secondary hover:text-text-primary font-code-sm transition-all" onclick="filterSkills('programming', this)">Programming</button>
-                <button class="skill-tab px-space-sm py-1 rounded text-text-secondary hover:text-text-primary font-code-sm transition-all" onclick="filterSkills('web-db', this)">Web & DB</button>
-                <button class="skill-tab px-space-sm py-1 rounded text-text-secondary hover:text-text-primary font-code-sm transition-all" onclick="filterSkills('tools', this)">Tools</button>
+        <!-- SECTION 4: EDUCATION -->
+        <section id="education" class="w-full max-w-7xl mx-auto px-6 py-24 flex flex-col justify-center border-t border-os-border mb-20">
+            <div class="reveal">
+                <div class="font-mono text-os-accent mb-2">03 // KERNEL_MODULES</div>
+                <h2 class="text-4xl md:text-6xl font-black uppercase text-os-heading mb-12">Education<span class="text-neon">_</span></h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md w-full mt-6" id="skillsContainer">
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm" data-cat="data-ai">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="font-code-md text-text-primary font-medium">Data & AI Ecosystem</span>
-                        <span class="material-symbols-outlined text-primary">smart_toy</span>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        Machine Learning (Scikit-learn), Deep Learning (PyTorch / TensorFlow), NLP Basics, LLM Integration (Fine-tuning, RAG, Prompt Engineering), Vector Databases (Pinecone, Chroma, Qdrant), Model Evaluation, LangChain, LangGraph.
-                    </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="reveal bg-os-panel border border-os-border p-8" style="border-radius: 2rem;">
+                    <span class="font-mono text-os-accent text-sm block mb-4">2022 - 2026</span>
+                    <h3 class="text-2xl font-bold text-os-heading mb-2">Bachelor’s in Computers & AI</h3>
+                    <p class="text-os-text">Capital University (Formerly Helwan University)</p>
+                    <p class="text-sm text-os-text mt-4 font-mono">Specialized in Machine Learning Theory, Data Structures, and Database Design.</p>
                 </div>
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm" data-cat="programming">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="font-code-md text-text-primary font-medium">Core Programming</span>
-                        <span class="material-symbols-outlined text-secondary">code</span>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        Python (Data Native, AsyncIO, Multi-threading), C# (.NET Core), Object-Oriented Programming (OOP), Data Structures & Algorithms.
-                    </p>
+
+                <div class="reveal bg-os-panel border border-os-border p-8" style="border-radius: 2rem;">
+                    <span class="font-mono text-os-accent text-sm block mb-4">Apr 2026 - Jul 2026</span>
+                    <h3 class="text-2xl font-bold text-os-heading mb-2">GCI World Program</h3>
+                    <p class="text-os-text">The University of Tokyo</p>
+                    <p class="text-sm text-os-text mt-4 font-mono">Global Consumer Intelligence, Data Science, and AI framework optimization.</p>
                 </div>
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm" data-cat="web-db">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="font-code-md text-text-primary font-medium">Web & Databases</span>
-                        <span class="material-symbols-outlined text-tertiary">database</span>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        RESTful APIs (FastAPI), Relational Database Design, SQL, MongoDB (NoSQL), Entity Framework Core.
-                    </p>
-                </div>
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm" data-cat="tools">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="font-code-md text-text-primary font-medium">Tools & Platforms</span>
-                        <span class="material-symbols-outlined text-accent-lime">build</span>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        GitHub (Version Control), Docker (Containerization & CI/CD), Apache Kafka, RabbitMQ, Postman, Power BI.
-                    </p>
-                </div>
-                <div class="p-space-md rounded-xl bg-surface-elevated border border-border-subtle shadow-sm" data-cat="soft-skills">
-                    <div class="flex justify-between items-center mb-4">
-                        <span class="font-code-md text-text-primary font-medium">Soft Skills</span>
-                        <span class="material-symbols-outlined text-text-muted">forum</span>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        Technical Documentation, Collaborative Problem Solving, Agile Mindset, Fast Learner, Community Leadership.
-                    </p>
+            </div>
+
+            <div class="reveal mt-12">
+                <h3 class="text-xl font-bold text-os-heading mb-6 font-mono">> LOAD_CERTIFICATES</h3>
+                <div class="flex flex-wrap gap-4 font-mono text-sm">
+                    <span class="px-4 py-2 border border-os-border bg-os-panel text-os-text rounded-full">LLMOps Concepts (DataCamp)</span>
+                    <span class="px-4 py-2 border border-os-border bg-os-panel text-os-text rounded-full">Vector DBs w/ Pinecone (365 Data Science)</span>
+                    <span class="px-4 py-2 border border-os-border bg-os-panel text-os-text rounded-full">Deep Learning (NVIDIA)</span>
+                    <span class="px-4 py-2 border border-os-border bg-os-panel text-os-text rounded-full">Generative AI (AWS)</span>
+                    <span class="px-4 py-2 border border-os-border bg-os-panel text-os-text rounded-full">Apache Kafka (DataCamp)</span>
                 </div>
             </div>
         </section>
-
-        <!-- PROJECTS PAGE -->
-        <section id="projects-section" class="page-section flex-col gap-space-lg w-full pt-8">
-            <div class="flex items-center gap-space-xs font-code-sm text-secondary mb-1"><span>02 // PRODUCTION HIGHLIGHTS</span></div>
-            <h2 class="text-3xl text-text-primary font-semibold tracking-tight">Selected AI & Distributed Systems</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mt-6">
-                <!-- Asset Sentinel -->
-                <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle flex flex-col gap-space-md">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span class="px-space-xs py-0.5 rounded bg-surface-container text-primary font-code-sm mb-2 inline-block">Industrial Predictive AI</span>
-                            <h3 class="text-xl text-text-primary font-semibold">Asset Sentinel</h3>
-                        </div>
-                        <span class="font-code-sm text-secondary">R²: 0.9654</span>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        Engineered a multi-tenant Predictive Maintenance (PdM) platform utilizing a 3-Layer Stacked Deep LSTM network to execute real-time Remaining Useful Life (RUL) forecasting on NASA's CMAPSS dataset. Built a high-throughput ingestion pipeline using RabbitMQ and FastAPI, and an interactive dashboard with a Text-to-SQL execution engine.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto pt-4">
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">FastAPI</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">Llama 3</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">RabbitMQ</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">RAG</span>
-                    </div>
-                </div>
-
-                <!-- ELARA -->
-                <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle flex flex-col gap-space-md">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span class="px-space-xs py-0.5 rounded bg-surface-container text-secondary font-code-sm mb-2 inline-block">Clinical GenAI</span>
-                            <h3 class="text-xl text-text-primary font-semibold">ELARA</h3>
-                        </div>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        An end-to-end clinical RAG system designed to process complex, multi-modal medical literature using Docling. Implemented dense semantic retrieval over Qdrant using BAAI/bge-m3 embeddings and deterministic guardrails to eliminate factual hallucinations. Delivered via high-performance async FastAPI endpoints.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto pt-4">
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">FastAPI</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">Qdrant</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">Docling</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">MongoDB</span>
-                    </div>
-                </div>
-
-                <!-- SwiftApply -->
-                <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle flex flex-col gap-space-md">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span class="px-space-xs py-0.5 rounded bg-surface-container text-tertiary font-code-sm mb-2 inline-block">LLM Orchestration</span>
-                            <h3 class="text-xl text-text-primary font-semibold">SwiftApply</h3>
-                        </div>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        Modular backend using FastAPI automating ATS-compliant CV generation tailored to job descriptions. Integrated Llama 3 via LangChain for prompt engineering, keyword extraction, and role-specific rewriting, managing multi-source candidate inputs dynamically.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto pt-4">
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">FastAPI</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">Prompt Engineering</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">Llama 3</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">LangChain</span>
-                    </div>
-                </div>
-
-                <!-- NDR System -->
-                <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle flex flex-col gap-space-md">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span class="px-space-xs py-0.5 rounded bg-surface-container text-accent-lime font-code-sm mb-2 inline-block">SecOps & Streaming</span>
-                            <h3 class="text-xl text-text-primary font-semibold">NDR & Real-Time SOC Triage</h3>
-                        </div>
-                    </div>
-                    <p class="text-sm text-text-secondary leading-relaxed">
-                        Real-time Network Detection and Response pipeline designed as an automated SOC triage tool. Uses Apache Kafka for decoupled ingestion and a two-stage ML pipeline (Random Forest & XGBoost) on the UNSW-NB15 dataset for binary anomaly filtering and multi-class threat classification.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto pt-4">
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">Python</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">Kafka</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">XGBoost</span>
-                        <span class="px-2 py-1 rounded bg-surface-container text-xs text-text-secondary font-code-sm">Scikit-Learn</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- EXPERIENCE PAGE -->
-        <section id="experience-section" class="page-section flex-col gap-space-lg w-full pt-8">
-            <div class="flex items-center gap-space-xs font-code-sm text-primary mb-1"><span>03 // PROFESSIONAL TRAJECTORY</span></div>
-            <h2 class="text-3xl text-text-primary font-semibold tracking-tight">Experience, Leadership & Apprenticeships</h2>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg mt-6">
-                <!-- Professional Experience -->
-                <div class="flex flex-col gap-space-md">
-                    <h3 class="font-label-caps text-text-muted uppercase tracking-wider mb-2">Industry Experience</h3>
-                    
-                    <div class="p-space-lg rounded-xl bg-surface-elevated border border-primary/40 shadow-lg">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <span class="px-space-xs py-0.5 rounded bg-primary/20 text-primary font-code-sm font-semibold">Active Role</span>
-                                <h4 class="text-xl text-text-primary font-bold mt-2">AI Engineer Intern</h4>
-                                <span class="font-code-sm text-secondary block mt-1">Duckurity</span>
-                            </div>
-                            <span class="font-code-sm text-text-muted text-right">Aug 2026 – Present</span>
-                        </div>
-                        <ul class="list-disc list-inside text-sm text-text-secondary space-y-2">
-                            <li>Developing the MVP for Nester, an AI website assistant for cybersecurity services guidance.</li>
-                            <li>Building multi-step reasoning and dynamic routing loops using LangGraph for tool execution.</li>
-                            <li>Developing asynchronous FastAPI backend endpoints with structured, low-latency responses.</li>
-                        </ul>
-                    </div>
-
-                    <h3 class="font-label-caps text-text-muted uppercase tracking-wider mt-6 mb-2">Volunteering & Leadership</h3>
-                    
-                    <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle shadow-sm flex flex-col gap-2">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="text-lg text-text-primary font-bold">Google Developer Group (GDG Al-Azhar)</h4>
-                                <span class="font-code-sm text-primary">Data Science Vice Head</span>
-                            </div>
-                            <span class="font-code-sm text-text-muted">Nov 2025 – Present</span>
-                        </div>
-                    </div>
-
-                    <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle shadow-sm flex flex-col gap-2">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h4 class="text-lg text-text-primary font-bold">ALX Voltra</h4>
-                                <span class="font-code-sm text-secondary">Public Relations Specialist</span>
-                            </div>
-                            <span class="font-code-sm text-text-muted">Apr 2025 – Present</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Apprenticeships -->
-                <div class="flex flex-col gap-space-md">
-                    <h3 class="font-label-caps text-text-muted uppercase tracking-wider mb-2">Technical Trainings & Internships</h3>
-                    
-                    <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle shadow-sm flex flex-col gap-6 relative">
-                        <div class="absolute left-8 top-10 bottom-10 w-0.5 bg-surface-container"></div>
-                        
-                        <!-- Timeline Items -->
-                        <div class="flex items-start gap-4 relative z-10">
-                            <div class="w-3 h-3 rounded-full bg-primary mt-1.5 shrink-0"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between">
-                                    <span class="font-code-sm text-text-primary font-medium">Samsung Innovation Campus</span>
-                                    <span class="font-code-sm text-text-muted text-xs">Jul 2026 – Oct 2026</span>
-                                </div>
-                                <span class="text-sm text-text-secondary">AI Apprenticeship</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4 relative z-10">
-                            <div class="w-3 h-3 rounded-full bg-secondary mt-1.5 shrink-0"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between">
-                                    <span class="font-code-sm text-text-primary font-medium">Genius Technology Center (GTC)</span>
-                                    <span class="font-code-sm text-text-muted text-xs">Aug 2025 – Sep 2025</span>
-                                </div>
-                                <span class="text-sm text-text-secondary">Machine Learning Interns Ambassador</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4 relative z-10">
-                            <div class="w-3 h-3 rounded-full bg-tertiary mt-1.5 shrink-0"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between">
-                                    <span class="font-code-sm text-text-primary font-medium">ALX Africa</span>
-                                    <span class="font-code-sm text-text-muted text-xs">Jan 2025 – Nov 2025</span>
-                                </div>
-                                <span class="text-sm text-text-secondary">Data Science Trainee</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4 relative z-10">
-                            <div class="w-3 h-3 rounded-full bg-accent-lime mt-1.5 shrink-0"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between">
-                                    <span class="font-code-sm text-text-primary font-medium">Elevvo Pathway</span>
-                                    <span class="font-code-sm text-text-muted text-xs">Jan 2025 – Sep 2025</span>
-                                </div>
-                                <span class="text-sm text-accent-lime font-medium">Machine Learning Intern (Outstanding Contributor)</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4 relative z-10">
-                            <div class="w-3 h-3 rounded-full bg-text-muted mt-1.5 shrink-0"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between">
-                                    <span class="font-code-sm text-text-primary font-medium">National Telecommunication Institute (NTI)</span>
-                                    <span class="font-code-sm text-text-muted text-xs">2024 – 2025</span>
-                                </div>
-                                <span class="text-sm text-text-secondary">Computer Vision & AI Engineering Trainee</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-4 relative z-10">
-                            <div class="w-3 h-3 rounded-full bg-text-muted mt-1.5 shrink-0"></div>
-                            <div class="flex-1">
-                                <div class="flex justify-between">
-                                    <span class="font-code-sm text-text-primary font-medium">Digital Egypt Pioneers Initiative (DEPI)</span>
-                                    <span class="font-code-sm text-text-muted text-xs">May 2024 – Oct 2024</span>
-                                </div>
-                                <span class="text-sm text-text-secondary">Backend (.NET) Web Developer</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- EDUCATION PAGE -->
-        <section id="education-section" class="page-section flex-col gap-space-lg w-full pt-8">
-            <div class="flex items-center gap-space-xs font-code-sm text-primary mb-1"><span>04 // FOUNDATIONS & CREDENTIALS</span></div>
-            <h2 class="text-3xl text-text-primary font-semibold tracking-tight">Academic Degrees & Certifications</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mt-6">
-                <!-- Degrees -->
-                <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle shadow-sm flex flex-col gap-space-md">
-                    <h3 class="font-label-caps text-text-muted uppercase tracking-wider mb-2">Academic Background</h3>
-                    
-                    <div class="border-b border-border-subtle pb-4">
-                        <div class="flex justify-between items-start mb-1">
-                            <h4 class="text-lg text-text-primary font-bold">Capital University (Formerly Helwan)</h4>
-                            <span class="font-code-sm text-primary text-sm">2022 - 2026</span>
-                        </div>
-                        <span class="text-sm text-secondary font-medium">Bachelor’s Degree – Faculty of Computers and Artificial Intelligence</span>
-                        <p class="text-xs text-text-secondary mt-2">Graduated in June 2026 with a core focus on Computer Science, AI, and Distributed Systems.</p>
-                    </div>
-
-                    <div class="pt-2">
-                        <div class="flex justify-between items-start mb-1">
-                            <h4 class="text-lg text-text-primary font-bold">The University of Tokyo</h4>
-                            <span class="font-code-sm text-accent-lime text-sm">Apr 2026 - Jul 2026</span>
-                        </div>
-                        <span class="text-sm text-text-secondary font-medium">GCI World (Global Consumer Intelligence) – Data Science & AI</span>
-                    </div>
-                </div>
-
-                <!-- Certifications -->
-                <div class="p-space-lg rounded-xl bg-surface-elevated border border-border-subtle shadow-sm flex flex-col gap-4">
-                    <h3 class="font-label-caps text-text-muted uppercase tracking-wider mb-2">Courses & Certificates</h3>
-                    
-                    <div class="flex flex-col gap-3">
-                        <div class="p-3 rounded-lg bg-surface-container border border-border-subtle">
-                            <span class="font-code-sm text-primary block text-xs mb-1">DataCamp</span>
-                            <span class="text-sm text-text-primary font-medium">LLMOps Concepts</span>
-                        </div>
-                        <div class="p-3 rounded-lg bg-surface-container border border-border-subtle">
-                            <span class="font-code-sm text-secondary block text-xs mb-1">365 Data Science</span>
-                            <span class="text-sm text-text-primary font-medium">Introduction to Vector Databases with Pinecone</span>
-                        </div>
-                        <div class="p-3 rounded-lg bg-surface-container border border-border-subtle">
-                            <span class="font-code-sm text-accent-lime block text-xs mb-1">NVIDIA</span>
-                            <span class="text-sm text-text-primary font-medium">Getting Started with Deep Learning</span>
-                        </div>
-                        <div class="p-3 rounded-lg bg-surface-container border border-border-subtle">
-                            <span class="font-code-sm text-tertiary block text-xs mb-1">Udacity / AWS</span>
-                            <span class="text-sm text-text-primary font-medium">Introducing Generative AI with AWS</span>
-                        </div>
-                        <div class="p-3 rounded-lg bg-surface-container border border-border-subtle">
-                            <span class="font-code-sm text-primary block text-xs mb-1">DataCamp</span>
-                            <span class="text-sm text-text-primary font-medium">Introduction to Apache Kafka</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- CLI MODAL -->
-    <div id="cmdPaletteModal" class="fixed inset-0 z-50 hidden bg-surface-base/85 backdrop-blur-md flex items-center justify-center p-4 transition-opacity">
-        <div class="w-full max-w-xl rounded-xl bg-surface-elevated border border-border-subtle shadow-2xl p-4 flex flex-col gap-4">
-            <div class="flex items-center gap-2 pb-2 border-b border-border-subtle">
-                <span class="font-code-lg text-primary font-bold">&gt;</span>
-                <input type="text" id="cmdPaletteInput" class="w-full bg-transparent font-code-md text-text-primary focus:outline-none" placeholder="Type a command to jump..." />
-                <kbd class="px-1.5 rounded bg-surface-container font-code-sm text-text-secondary">ESC</kbd>
+    <!-- PROJECT MODAL POPUP -->
+    <div id="project-modal" class="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80">
+        <div class="modal-content relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-os-panel border-2 border-os-accent p-6 sm:p-10 shadow-neon-strong" style="border-radius: 2rem;">
+            
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-os-text hover:text-os-accent transition-colors font-mono font-bold text-xl">
+                [X]
+            </button>
+
+            <div class="font-mono text-os-accent mb-2" id="modal-tag">PROD_ENV</div>
+            <h2 class="text-3xl sm:text-5xl font-black text-os-heading mb-6 uppercase" id="modal-title">Project Title</h2>
+            
+            <div class="flex flex-wrap gap-2 mb-8 font-mono text-xs" id="modal-stack">
+                <!-- Stack injected here -->
             </div>
-            <div class="flex flex-col gap-2 mt-2">
-                <button class="text-left p-2 rounded-lg hover:bg-surface-container font-code-sm text-text-primary" onclick="navigate('overview'); closePaletteModal()"># Overview</button>
-                <button class="text-left p-2 rounded-lg hover:bg-surface-container font-code-sm text-text-primary" onclick="navigate('skills-section'); closePaletteModal()"># Skills Matrix</button>
-                <button class="text-left p-2 rounded-lg hover:bg-surface-container font-code-sm text-text-primary" onclick="navigate('projects-section'); closePaletteModal()"># Selected Projects</button>
-                <button class="text-left p-2 rounded-lg hover:bg-surface-container font-code-sm text-text-primary" onclick="navigate('experience-section'); closePaletteModal()"># Experience & Apprenticeships</button>
-                <button class="text-left p-2 rounded-lg hover:bg-surface-container font-code-sm text-text-primary" onclick="navigate('education-section'); closePaletteModal()"># Education & Certifications</button>
+
+            <div class="space-y-6 text-os-text leading-relaxed">
+                <div id="modal-story" class="space-y-4">
+                    <!-- Story injected here -->
+                </div>
+            </div>
+            
+            <div class="mt-10 pt-6 border-t border-os-border font-mono text-sm">
+                <a href="#" class="inline-block px-6 py-3 bg-os-accent text-black font-bold hover:bg-os-accentHover transition-colors rounded">
+                    > INITIATE_DEPLOYMENT (View Source)
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- TOAST -->
-    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden px-4 py-2 rounded-lg bg-surface-elevated border border-primary/40 shadow-2xl flex items-center gap-2 text-text-primary font-code-sm transition-all transform translate-y-2">
-        <span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-        <span id="toastMsg">Action executed</span>
-    </div>
-
+    <!-- Data Object for Modals -->
     <script>
-        // Router System (SPA logic)
-        function navigate(pageId) {
-            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active-page'));
-            document.getElementById(pageId).classList.add('active-page');
-            
-            document.querySelectorAll('.nav-link').forEach(el => {
-                el.classList.remove('text-primary');
-                el.classList.add('text-text-secondary');
-            });
-            event.currentTarget.classList.remove('text-text-secondary');
-            event.currentTarget.classList.add('text-primary');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Greeting Cycler
-        const greetings = ['Hello World • Fatma Amr', 'import torch • eval()', 'from agents import Fatma'];
-        let greetingIndex = 0;
-        function cycleGreeting() {
-            greetingIndex = (greetingIndex + 1) % greetings.length;
-            const el = document.getElementById('greetingText');
-            if (el) {
-                el.style.opacity = '0';
-                setTimeout(() => {
-                    el.innerText = greetings[greetingIndex];
-                    el.style.opacity = '1';
-                }, 150);
+        const projectData = {
+            'project-1': {
+                tag: 'PROD_ENV',
+                title: 'Asset Sentinel',
+                stack: ['FastAPI', 'Llama 3', 'RabbitMQ', 'Deep LSTM', 'MongoDB'],
+                story: `
+                    <p><strong class="text-os-heading">The Architecture:</strong> Engineered a multi-tenant Predictive Maintenance (PdM) platform utilizing a 3-Layer Stacked Deep LSTM network to execute real-time Remaining Useful Life (RUL) forecasting.</p>
+                    <p><strong class="text-os-heading">The Logic:</strong> Implemented a Piecewise Linear RUL Target Strategy over stateful sliding context windows, mitigating early-stage gradient noise to achieve exceptional accuracy on NASA's CMAPSS dataset.</p>
+                    <p><strong class="text-os-heading">Data Flow:</strong> Architected a high-throughput, decoupled ingestion pipeline using RabbitMQ and FastAPI asynchronous workers to stream multi-dimensional telemetry arrays into MongoDB.</p>
+                    <p><strong class="text-os-heading">User Interface:</strong> Built an Interactive Executive Dashboard integrated with a natural language Text-to-SQL execution engine, empowering operators to query live database streams via plain-text.</p>
+                `
+            },
+            'project-2': {
+                tag: 'AI_CORE',
+                title: 'ELARA RAG System',
+                stack: ['FastAPI', 'Qdrant', 'Docling', 'MongoDB', 'BAAI/bge-m3'],
+                story: `
+                    <p><strong class="text-os-heading">The Core:</strong> Engineered an end-to-end clinical RAG pipeline to process complex, multi-modal medical literature and unstructured documents using Docling for layout-aware PDF extraction.</p>
+                    <p><strong class="text-os-heading">Vector Ops:</strong> Implemented dense semantic retrieval over Qdrant vector database leveraging BAAI embeddings, optimized with chunking strategies to minimize factual hallucinations.</p>
+                    <p><strong class="text-os-heading">Safety Mechanisms:</strong> Built deterministic guardrails and safety verification gates ensuring domain-specific response alignment before surfacing outputs.</p>
+                    <p><strong class="text-os-heading">Delivery:</strong> High-performance asynchronous query endpoints using FastAPI with structured metadata filtering.</p>
+                `
+            },
+            'project-3': {
+                tag: 'AUTOMATION',
+                title: 'SwiftApply CV',
+                stack: ['FastAPI', 'Prompt Engineering', 'Llama 3', 'LangChain'],
+                story: `
+                    <p><strong class="text-os-heading">The Objective:</strong> Engineered a modular backend using FastAPI to automate the end-to-end process of generating ATS-compliant CVs tailored to specific Job Descriptions.</p>
+                    <p><strong class="text-os-heading">Data Handling:</strong> Developed complex form-handling logic and data validation workflows to manage multi-source user inputs.</p>
+                    <p><strong class="text-os-heading">LLM Integration:</strong> Integrated Llama 3 via LangChain advanced Prompt Engineering to automate keyword extraction and role-specific content rewriting.</p>
+                `
+            },
+            'project-4': {
+                tag: 'SEC_OPS',
+                title: 'NDR & SOC Triage',
+                stack: ['Python', 'Apache Kafka', 'XGBoost', 'Scikit-Learn', 'FastAPI'],
+                story: `
+                    <p><strong class="text-os-heading">The System:</strong> A real-time Network Detection and Response (NDR) pipeline designed as an automated SOC triage tool to mitigate behavioral blindness and alert fatigue.</p>
+                    <p><strong class="text-os-heading">Stream Processing:</strong> Engineered a decoupled, streaming ingestion engine using Apache Kafka to consume network telemetry on the UNSW-NB15 dataset.</p>
+                    <p><strong class="text-os-heading">ML Engine:</strong> Implemented a two-stage machine learning inference pipeline (Random Forest & XGBoost) to execute real-time binary anomaly filtering followed by granular threat classification.</p>
+                `
             }
-        }
+        };
 
-        // Skill Filters
-        function filterSkills(category, btnEl) {
-            const tabs = document.querySelectorAll('.skill-tab');
-            tabs.forEach(t => {
-                t.classList.remove('bg-surface-container', 'text-text-primary');
-                t.classList.add('text-text-secondary');
-            });
-            btnEl.classList.add('bg-surface-container', 'text-text-primary');
-            btnEl.classList.remove('text-text-secondary');
-
-            const cards = document.querySelectorAll('#skillsContainer > div');
-            cards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-cat') === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
+        // Scroll Reveal Logic
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
                 }
             });
-        }
+        }, {
+            root: null,
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        });
 
-        // Utils (Toast & Modals)
-        function showToast(msg) {
-            const toast = document.getElementById('toastNotification');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.remove('hidden', 'translate-y-2');
-            setTimeout(() => {
-                toast.classList.add('translate-y-2');
-                setTimeout(() => toast.classList.add('hidden'), 200);
-            }, 2000);
-        }
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
 
-        function copyEmail() {
-            navigator.clipboard.writeText('fatma.amr@example.com').then(() => {
-                showToast('Email address copied to clipboard');
+        // Trigger initial check in case items are already in viewport on load
+        setTimeout(() => {
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if(rect.top < window.innerHeight) {
+                    el.classList.add('active');
+                }
             });
+        }, 100);
+
+        // Modal Logic
+        const modal = document.getElementById('project-modal');
+        
+        function openModal(projectId) {
+            const data = projectData[projectId];
+            if(!data) return;
+
+            document.getElementById('modal-tag').textContent = data.tag;
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-story').innerHTML = data.story;
+            
+            const stackContainer = document.getElementById('modal-stack');
+            stackContainer.innerHTML = '';
+            data.stack.forEach(tech => {
+                const span = document.createElement('span');
+                span.className = 'text-os-accent border border-os-accent px-3 py-1 rounded-full bg-os-base/50';
+                span.textContent = tech;
+                stackContainer.appendChild(span);
+            });
+
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden'; 
         }
 
-        function openPaletteModal() {
-            document.getElementById('cmdPaletteModal').classList.remove('hidden');
-            setTimeout(() => document.getElementById('cmdPaletteInput').focus(), 50);
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto'; 
         }
-        function closePaletteModal() { document.getElementById('cmdPaletteModal').classList.add('hidden'); }
 
-        window.addEventListener('keydown', (e) => {
-            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-                e.preventDefault(); openPaletteModal();
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) {
+                closeModal();
             }
-            if (e.key === 'Escape') closePaletteModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape' && modal.classList.contains('open')) {
+                closeModal();
+            }
         });
     </script>
 </body>
